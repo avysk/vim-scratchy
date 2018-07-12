@@ -1,6 +1,6 @@
 # Basic scratch window for vim
 
-`vim-scratchy` is a vim plugin for having a basic scratch window in vim. The content of that window is not saved between sessions.
+`vim-scratchy` is a vim plugin for having a basic scratch buffer in vim. The content of that buffer is not saved between sessions.
 
 BSD 2-clause license.
 
