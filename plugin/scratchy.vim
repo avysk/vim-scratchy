@@ -25,12 +25,12 @@ endif
 let scratchy_version = "0.3"
 
 " Close scratch window or tab
-function CloseScratchAll()
-  execute "tabdo CloseScratch"
+function CloseScratch()
+  execute "tabdo call CloseScratch_()"
 endfunction
 
 " Close active scratch window or tab
-function CloseScratch()
+function CloseScratch_()
   let l:win_num = bufwinnr(g:scratchy_name)
   if l:win_num > 0
     " Close scratch window in the current tab
@@ -43,7 +43,7 @@ endfunction
 " Open scratch window
 function OpenScratchWindow()
   let l:old_tab = tabpagenr()
-  execute "tabdo CloseScratch"
+  call CloseScratch()
   execute "tabn " . old_tab
   if bufexists(g:scratchy_name)
     execute g:scratchy_geometry . "new"
@@ -60,7 +60,7 @@ endfunction
 " Open scratch tab
 function OpenScratchTab()
   let s:old_tab = tabpagenr()
-  execute "tabdo CloseScratch"
+  call CloseScratch()
   if bufexists(g:scratchy_name)
     execute "tabe"
     execute "buf " . g:scratchy_name
@@ -95,7 +95,7 @@ function ToggleScratchWindow()
   else
     let l:win_num = bufwinnr(g:scratchy_name)
     if l:win_num > 0
-      call CloseScratch()
+      call CloseScratch_()
     else
       call OpenScratchWindow()
     endif
@@ -104,6 +104,6 @@ endfunction
 
 command -nargs=0 ScratchTab call ToggleScratchTab()
 command -nargs=0 ScratchWindow call ToggleScratchWindow()
-command -nargs=0 CloseScratch call CloseScratchAll()
+command -nargs=0 CloseScratch call CloseScratch()
 
 " vim:sts=2:sw=2
